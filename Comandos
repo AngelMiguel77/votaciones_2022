@@ -1,0 +1,17 @@
+# Install
+  pip3 install virtualenv
+  virtualenv venv
+
+# Run
+  venv\Scripts\activate
+
+# Install
+  python -m pip install flask
+  pip install flask_cors
+  pip install python-dotenv
+  pip install pymongo
+  pip install dnspython
+
+# Ejecute
+  flask run
+  python app.py

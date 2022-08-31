@@ -1,0 +1,12 @@
+import pymongo
+from dotenv import dotenv_values
+
+config = dotenv_values('.env')
+
+class DB:
+    def __init__(self):
+        self.client = pymongo.MongoClient(config['DB_URL'])
+        self.db = self.client.get_database()
+    
+    def collection(self, name):
+        return self.db.get_collection(name)
