@@ -8,9 +8,9 @@ controller = CandidatoController()
 def get():
     return jsonify(controller.get()), 201
     
-@candidato_module.post('/')
-def create():
-    return jsonify(controller.create(request.get_json())), 201
+@candidato_module.post('/partido/<string:partido_id>')
+def create(partido_id):
+    return jsonify(controller.create(request.get_json(), partido_id)), 201
     
 @candidato_module.get('/<string:id>')
 def show(id):

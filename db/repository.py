@@ -45,7 +45,7 @@ class Repository(Generic[T]):
         id = ""
         if hasattr(item, '_id') and item._id != "":
             id = ObjectId(item._id)
-            # delattr('_id', item.__dict__)
+            delattr('_id', item.__dict__)
             self.collection.update_one({
                 "_id": id
             }, {
