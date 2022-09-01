@@ -45,15 +45,15 @@ class Repository(Generic[T]):
         id = ""
         if hasattr(item, '_id') and item._id != "":
             id = ObjectId(item._id)
-            delattr('_id', item.__dict__)
+            # delattr('_id', item.__dict__)
             self.collection.update_one({
-            "_id": id
+                "_id": id
             }, {
-            "$set": item.__dict__
-        })
+                "$set": item.__dict__
+            })
         else:
             result = self.collection.insert_one(item.__dict__)
-            id = result.inserted_id.__str__()
+            id = result.inserted_id
         return id.__str__()
     
     def update(self, id, item: T):
@@ -117,12 +117,12 @@ class Repository(Generic[T]):
         theDict = item.__dict__
         keys = list(theDict.keys())
         for k in keys:
-            print(theDict[k].__str__().count("object"))
             if theDict[k].__str__().count("object") == 1:
+            #print(getattr(item, k))
                 newObject = self.object_to_db_ref(getattr(item, k))
                 setattr(item, k, newObject)
         return item
-
+    
     def object_to_db_ref(self, item: T):
         nameCollection = item.__class__.__name__.lower().replace('model','')
         return DBRef(nameCollection, ObjectId(item._id))
